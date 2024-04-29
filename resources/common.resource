@@ -10,4 +10,6 @@ Create Token
     ${response}    POST    url=${url}/auth    json=${body}
 
     Status Should Be    200
-    ${token}    Set Variable    ${response.json()[token]}
+    ${token}    Set Variable    ${response.json()}[token]
+    Set Suite Variable    ${token}
+    Log To Console    ${token}
