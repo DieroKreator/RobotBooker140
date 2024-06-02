@@ -95,3 +95,25 @@ Delete Booking
     ${response}    DELETE    url=${url}/booking/${booking_id}    headers=${headers}
 
     Status Should Be    201
+
+Get Bookings
+    ${response}    GET    url=${url}/booking
+
+    ${response_body}    Set Variable    ${response.json()}
+    Log To Console    ${response_body}
+
+    Status Should Be    200
+
+    ${booking_id}    Set Variable    ${response_body}[0][bookingid]
+    ${booking_id2}    Set Variable    ${response_body}[1][bookingid]
+    ${booking_id3}    Set Variable    ${response_body}[2][bookingid]
+    Set Suite Variable    ${booking_id}
+
+    Should Be Equal    ${response_body}[0][bookingid]      ${booking_id}
+    Should Be Equal    ${response_body}[1][bookingid]      ${booking_id2}
+    Should Be Equal    ${response_body}[2][bookingid]      ${booking_id3}
+
+Get HealthCheck
+    ${response}    GET    url=${url}/ping
+
+    Status Should Be    201
